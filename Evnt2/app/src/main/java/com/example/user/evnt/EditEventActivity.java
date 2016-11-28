@@ -2,6 +2,7 @@ package com.example.user.evnt;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.net.Uri;
@@ -53,7 +54,7 @@ public class EditEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_event);
 
-        initParse();
+        initParse(this);
 
         initLayoutStuff();
 
@@ -70,10 +71,10 @@ public class EditEventActivity extends AppCompatActivity {
 
     }
 
-    private void initParse() {
+    public static void initParse(Context context) {
         ParseObject.registerSubclass(MyEvent.class);
-        Parse.enableLocalDatastore(getApplicationContext());
-        Parse.initialize(new Parse.Configuration.Builder(this)
+        Parse.enableLocalDatastore(context);
+        Parse.initialize(new Parse.Configuration.Builder(context)
                 .applicationId(APPLICATION_ID)
                 .clientKey(CLIENT_KEY)
                 .server(SERVER)
