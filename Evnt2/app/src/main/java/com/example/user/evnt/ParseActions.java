@@ -5,21 +5,14 @@ import java.util.ArrayList;
 /**
  * Created by User on 26/11/2016.
  */
-public class ParseActions implements ParseActionsInterface
+public class ParseActions implements EventManagment
 {
-
-    @Override
-    public void createNewEvent(int year,int month, int day, int hour, int minute, String title) {
-
-        MyEvent newEvent=new MyEvent();
-
-    }
-
     @Override
     public void updateEvent(MyEvent event) {
+        event.saveInBackground();
+
 
     }
-
     @Override
     public ArrayList<MyEvent> retrieveAllEvents() {
         return null;

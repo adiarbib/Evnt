@@ -8,34 +8,10 @@ import com.parse.ParseQuery;
  */
 public class MyEvent extends ParseObject
 {
-//    private int year;
-//    private int month;
-//    private int day;
-//    private int hour;
-//    private int minute;
-//    private String title;
-
-//    public MyEvent(int year, int month, int day, int hour, int minute, String title) {
-//        this.year = year;
-//        this.month = month;
-//        this.day = day;
-//        this.hour = hour;
-//        this.minute = minute;
-//        this.title = title;
-//    }
-
-    /**
-     *
-     * @return
-     */
     public int getYear() {
         return getInt("year");
     }
 
-    /**
-     *
-     * @param year
-     */
     public void setYear(int year) {
         put("year", year);
     }
@@ -87,10 +63,10 @@ public class MyEvent extends ParseObject
     @Override
     public String toString() {
         String result=
-                getTitle()+" on "+
-                getDay()+" . "+
-                getMonth()+" . "+
-                getYear()+" at "+
+                this.getTitle()+" on "+
+                this.getDay()+" . "+
+                this.getMonth()+" . "+
+                this.getYear()+" at "+
                         getHour()+" : "+
                         getMinute()+'\n';
         return result;

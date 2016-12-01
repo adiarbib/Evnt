@@ -2,10 +2,7 @@ package com.example.user.evnt;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.icu.text.SimpleDateFormat;
-import android.icu.util.Calendar;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,20 +10,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
-import com.parse.Parse;
-import com.parse.ParseACL;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
+
+import java.util.Calendar;
 
 /**
  * this is the edit event activity
  */
 public class EditEventActivity extends AppCompatActivity {
-
-    public static final String APPLICATION_ID = "a2IxzIPAzFaelatZwzP038qFhKIdLIuAc4tGsLET";
-    public static final String CLIENT_KEY = "HJwXRtCY87SyafpzsnJOapBdQOknRjwqBNzRRgCG";
-    public static final String SERVER = "https://parseapi.back4app.com";
 
     EditText titleEditText;
     Button dateButton;
@@ -47,8 +37,6 @@ public class EditEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_event);
 
-        initParse(this);
-
         initLayoutStuff();
 
         onDateButtonClicked();
@@ -61,22 +49,6 @@ public class EditEventActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-
-    public static void initParse(Context context) {
-        ParseObject.registerSubclass(MyEvent.class);
-        Parse.enableLocalDatastore(context);
-        Parse.initialize(new Parse.Configuration.Builder(context)
-                .applicationId(APPLICATION_ID)
-                .clientKey(CLIENT_KEY)
-                .server(SERVER)
-                .build()
-        );
-        ParseUser.enableAutomaticUser();
-        ParseACL defaultACL = new ParseACL();
-        ParseACL.setDefaultACL(defaultACL, true);
-
     }
 
     private void onTimeButtonClicked() {
@@ -115,7 +87,6 @@ public class EditEventActivity extends AppCompatActivity {
                 mDatePicker = new DatePickerDialog(EditEventActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int selectedyear, int selectedmonth, int selectedday) {
-
                         dateButton.setText(selectedday + " / " + selectedmonth + " / " + selectedyear);
                     }
                 }, mYear, mMonth, mDay);
