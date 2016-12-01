@@ -13,10 +13,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
-
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseObject;
@@ -26,7 +22,6 @@ import com.parse.ParseUser;
 /**
  * this is the edit event activity
  */
-
 public class EditEventActivity extends AppCompatActivity {
 
     public static final String APPLICATION_ID = "a2IxzIPAzFaelatZwzP038qFhKIdLIuAc4tGsLET";
@@ -47,8 +42,6 @@ public class EditEventActivity extends AppCompatActivity {
     int mMonth;
     int mDay;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,8 +61,8 @@ public class EditEventActivity extends AppCompatActivity {
 
             }
         });
-
     }
+
 
     public static void initParse(Context context) {
         ParseObject.registerSubclass(MyEvent.class);

@@ -24,10 +24,18 @@ public class MyEvent extends ParseObject
 //        this.title = title;
 //    }
 
+    /**
+     *
+     * @return
+     */
     public int getYear() {
         return getInt("year");
     }
 
+    /**
+     *
+     * @param year
+     */
     public void setYear(int year) {
         put("year", year);
     }
