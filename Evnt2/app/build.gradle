@@ -30,4 +30,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile 'com.parse:parseui-login-android:0.0.1'
     compile 'com.parse:parseui-widget-android:0.0.1'
+    compile 'com.parse:parse-android:1.13.1'
 }

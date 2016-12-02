@@ -2,6 +2,7 @@ package com.example.user.evnt;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,47 +27,57 @@ public class EditEventActivity extends AppCompatActivity {
     String formattedDate;
     String formatedTime;
 
-    int hour;
-    int minute;
-    int mYear;
-    int mMonth;
-    int mDay;
+    int pickedHour;
+    int pickedMinute;
+    int pickedYear;
+    int pickedMonth;
+    int pickedDay;
+
+    EventManagment eventManagment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_event);
-
         initLayoutStuff();
+        initDateButton();
+        initTimeButton();
+        eventManagment=new ParseActions();
+        initDoneButton();
+    }
 
-        onDateButtonClicked();
-
-        onTimeButtonClicked();
-
+    private void initDoneButton() {
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                MyEvent newEvent=new MyEvent();
+                newEvent.setDay(pickedDay);
+                newEvent.setMonth(pickedMonth);
+                newEvent.setYear(pickedYear);
+                newEvent.setHour(pickedHour);
+                newEvent.setMinute(pickedMinute);
+                newEvent.setTitle(titleEditText.getText().toString());
+                eventManagment.updateEvent(newEvent);
+                Intent backToMainActivity=new Intent(EditEventActivity.this,MainActivity.class);
+                startActivity(backToMainActivity);
             }
         });
     }
 
-    private void onTimeButtonClicked() {
+    private void initTimeButton() {
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                hour = cal.get(Calendar.HOUR_OF_DAY);
-                minute = cal.get(Calendar.MINUTE);
                 TimePickerDialog mTimePicker;
-
                 mTimePicker = new TimePickerDialog(EditEventActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-
                         timeButton.setText(selectedHour + " : " + selectedMinute);
+                        pickedHour=selectedHour;
+                        pickedMinute=selectedMinute;
                     }
-                }, hour, minute, true);
+                }, cal.get(Calendar.HOUR_OF_DAY),cal.get(Calendar.MINUTE), true);
 
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
@@ -74,22 +85,21 @@ public class EditEventActivity extends AppCompatActivity {
         });
     }
 
-    private void onDateButtonClicked() {
+    private void initDateButton() {
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                mYear = cal.get(Calendar.YEAR);
-                mMonth = cal.get(Calendar.MONTH);
-                mDay = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog mDatePicker;
                 mDatePicker = new DatePickerDialog(EditEventActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int selectedyear, int selectedmonth, int selectedday) {
                         dateButton.setText(selectedday + " / " + selectedmonth + " / " + selectedyear);
+                        pickedMonth=selectedmonth;
+                        pickedDay=selectedday;
+                        pickedYear=selectedyear;
                     }
-                }, mYear, mMonth, mDay);
+                }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 
                 mDatePicker.setTitle("Select Date");
                 mDatePicker.show();

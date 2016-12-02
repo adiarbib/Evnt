@@ -1,63 +1,76 @@
 package com.example.user.evnt;
 
+import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 /**
  * Created by User on 27/11/2016.
  */
+@ParseClassName("MyEvent")
 public class MyEvent extends ParseObject
 {
+
+    //all constant keys
+    public static final String YEAR_KEY="year";
+    public static final String MONTH_KEY="month";
+    public static final String DAY_KEY="day";
+    public static final String HOUR_KEY="hour";
+    public static final String MINUTE_KEY="minute";
+    public static final String TITLE_KEY="title";
+    public static final String DATE_KEY="date";
+
+    public MyEvent()
+    {
+        super();
+    }
+
     public int getYear() {
-        return getInt("year");
+        return getInt(YEAR_KEY);
     }
 
     public void setYear(int year) {
-        put("year", year);
+        put(YEAR_KEY, year);
     }
 
     public int getMonth() {
-        return getInt("month");
+        return getInt(MONTH_KEY);
     }
 
     public void setMonth(int month) {
-        put("month",month);
+        put(MONTH_KEY,month);
     }
 
     public int getDay() {
-        return getInt("day");
+        return getInt(DAY_KEY);
     }
 
     public void setDay(int day) {
-        put("day",day);
+        put(DAY_KEY,day);
     }
 
     public int getHour() {
-        return getInt("hour");
+        return getInt(HOUR_KEY);
     }
 
     public void setHour(int hour) {
-        put("hour",hour);
+        put(HOUR_KEY,hour);
     }
 
     public int getMinute() {
-        return getInt("minute");
+        return getInt(MINUTE_KEY);
     }
 
     public void setMinute(int minute) {
-        put("minute",minute);
+        put(MINUTE_KEY,minute);
     }
 
     public String getTitle() {
-        return getString("title");
+        return getString(TITLE_KEY);
     }
 
     public void setTitle(String title) {
-        put("title", title);
-    }
-
-    public static ParseQuery<MyEvent> getQuery() {
-        return ParseQuery.getQuery(MyEvent.class);
+        put(TITLE_KEY, title);
     }
 
     @Override

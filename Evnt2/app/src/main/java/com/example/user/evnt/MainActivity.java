@@ -8,37 +8,41 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.parse.ParseQueryAdapter;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayAdapter<MyEvent> eventsAdapter;
-    private ListView eventsList;
-    private ArrayList<MyEvent> eventsArrayList;
-    private ParseQueryAdapter<MyEvent> myEventListAdapter;
+    private EventManagment eventManagment;
+    private ArrayList eventsListFromParse;
+    private ListView listView;
+    private ArrayAdapter<MyEvent> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        listView = (ListView) findViewById(R.id.listOfEvents);
+        initFab();
+    }
 
+    private void initFab() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setImageResource(R.drawable.plus);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,EditEventActivity.class);
+                Intent intent = new Intent(MainActivity.this, EditEventActivity.class);
                 startActivity(intent);
             }
         });
-
-        eventsList=(ListView)findViewById(R.id.listOfEvents);
-        eventsArrayList = new ArrayList<>();
-        eventsAdapter = new ArrayAdapter<MyEvent>(this, android.R.layout.simple_list_item_1, eventsArrayList);
-        eventsList.setAdapter(eventsAdapter);
-
     }
 
+    @Override
+        protected void onResume() {
+        super.onResume();
+        eventManagment = new ParseActions();
+        eventsListFromParse = (ArrayList) eventManagment.retrieveAllEvents();
+        adapter = new ArrayAdapter<MyEvent>(MainActivity.this, android.R.layout.simple_list_item_1, eventsListFromParse);
+        listView.setAdapter(adapter);
+    }
 }
