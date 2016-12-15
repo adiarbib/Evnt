@@ -119,6 +119,11 @@ public class EditEventActivity extends AppCompatActivity {
         dateButton.setText(formattedDate);
         formatedTime = tf.format(cal.getTime());
         timeButton.setText(formatedTime);
+        pickedMinute=cal.get(Calendar.MINUTE);
+        pickedMonth=cal.get(Calendar.MONTH)+1;
+        pickedYear=cal.get(Calendar.YEAR);
+        pickedHour=cal.get(Calendar.HOUR);
+        pickedDay=cal.get(Calendar.DAY_OF_MONTH);
     }
 
 

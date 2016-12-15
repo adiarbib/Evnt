@@ -7,13 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import java.util.ArrayList;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import java.util.Collections;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private EventManagment eventManagment;
-    private ArrayList eventsListFromParse;
     private ListView listView;
     private ArrayAdapter<MyEvent> adapter;
 
@@ -38,11 +39,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-        protected void onResume() {
+    protected void onResume() {
         super.onResume();
         eventManagment = new ParseActions();
-        eventsListFromParse = (ArrayList) eventManagment.retrieveAllEvents();
-        adapter = new ArrayAdapter<MyEvent>(MainActivity.this, android.R.layout.simple_list_item_1, eventsListFromParse);
-        listView.setAdapter(adapter);
+        eventManagment.retrieveEventsCallback(new FindCallback<MyEvent>() {
+            @Override
+            public void done(List<MyEvent> list, ParseException e) {
+
+                Collections.sort(list);
+                adapter = new ArrayAdapter<MyEvent>(MainActivity.this, android.R.layout.simple_list_item_1, list);
+                listView.setAdapter(adapter);
+            }
+        });
     }
 }
