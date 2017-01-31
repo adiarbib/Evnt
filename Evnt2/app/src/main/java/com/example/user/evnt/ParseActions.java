@@ -11,7 +11,6 @@ public class ParseActions implements EventManagment {
 
     @Override
     public void updateEvent(MyEvent event) {
-        Log.e("here","here");
         event.saveInBackground();
     }
 
