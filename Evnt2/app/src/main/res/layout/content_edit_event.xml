@@ -16,7 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Title"
+        android:hint="Title"
+        android:textAlignment="center"
         android:ems="10"
         android:id="@+id/title"
         android:layout_marginTop="44dp"
@@ -28,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Pick a Date"
+        android:text="Pick the Date"
         android:id="@+id/dateTextView"
         android:layout_marginTop="62dp"
         android:layout_below="@+id/title"
@@ -65,7 +66,7 @@
         android:text="Done"
         android:id="@+id/finishButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="44dp" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

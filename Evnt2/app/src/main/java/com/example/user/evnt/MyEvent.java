@@ -4,11 +4,13 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.io.Serializable;
+
 /**
  * Created by User on 27/11/2016.
  */
 @ParseClassName("MyEvent")
-public class MyEvent extends ParseObject implements Comparable<MyEvent> {
+public class MyEvent extends ParseObject implements Comparable<MyEvent>,Serializable {
 
     //all constant keys
     public static final String YEAR_KEY = "year";

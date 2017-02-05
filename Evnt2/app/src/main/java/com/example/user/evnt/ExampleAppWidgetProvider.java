@@ -17,7 +17,8 @@ public class ExampleAppWidgetProvider extends AppWidgetProvider
         final int N = appWidgetIds.length;
 
         // Perform this loop procedure for each App Widget that belongs to this provider
-        for (int i=0; i<N; i++) {
+        for (int i=0; i<N; i++)
+        {
             int appWidgetId = appWidgetIds[i];
 
             // Create an Intent to launch ExampleActivity

@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
 import com.parse.FindCallback;
 import com.parse.ParseException;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -18,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private EventManagment eventManagment;
     private ListView listView;
     private ArrayAdapter<MyEvent> adapter;
+
+    public static final String CURRENT_EVENT_POSITION = "currentEventPosition";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,15 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 eventManagment.deleteEvent((MyEvent) listView.getItemAtPosition(i));
                 return true;
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //todo: open up another activity to edit the event
+                Intent editIntent = new Intent(MainActivity.this, EditEventActivity.class);
+                editIntent.putExtra(CURRENT_EVENT_POSITION, i);
+                startActivity(editIntent);
             }
         });
     }
