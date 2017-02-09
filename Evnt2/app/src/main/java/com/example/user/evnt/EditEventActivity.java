@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -19,7 +18,6 @@ import com.parse.ParseException;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -32,10 +30,12 @@ public class EditEventActivity extends AppCompatActivity {
     Button timeButton;
     Button finishButton;
     Calendar cal;
-    String formattedDate;
+    String formatedDate;
     String formatedTime;
     MyEvent currentEvent;
     int positionOfCurrentEvent;
+    SimpleDateFormat df;
+    SimpleDateFormat tf;
 
     int pickedHour;
     int pickedMinute;
@@ -51,17 +51,22 @@ public class EditEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_event);
         initLayoutStuff();
 
-        positionOfCurrentEvent = getIntent().getIntExtra(MainActivity.CURRENT_EVENT_POSITION, positionOfCurrentEvent);
-        eventManagment = new ParseActions();
-        eventManagment.retrieveEventsCallback(new FindCallback<MyEvent>() {
-            @Override
-            public void done(List<MyEvent> list, ParseException e) {
-                Collections.sort(list);
-                currentEvent = list.get(positionOfCurrentEvent);
-                initValues();
+        positionOfCurrentEvent = getIntent().getIntExtra(MainActivity.CURRENT_EVENT_POSITION, -1);
+        if (positionOfCurrentEvent != -1) {
 
-            }
-        });
+            eventManagment.retrieveEventsCallback(new FindCallback<MyEvent>() {
+                @Override
+                public void done(List<MyEvent> list, ParseException e) {
+                    Collections.sort(list);
+                    currentEvent = list.get(positionOfCurrentEvent);
+                    initValues();
+
+                }
+            });
+        } else {
+            currentEvent = null;
+            initValues();
+        }
         initDateButton();
         initTimeButton();
         initDoneButton();
@@ -71,14 +76,20 @@ public class EditEventActivity extends AppCompatActivity {
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyEvent newEvent = new MyEvent();
-                newEvent.setDay(pickedDay);
-                newEvent.setMonth(pickedMonth);
-                newEvent.setYear(pickedYear);
-                newEvent.setHour(pickedHour);
-                newEvent.setMinute(pickedMinute);
-                newEvent.setTitle(titleEditText.getText().toString());
-                eventManagment.updateEvent(newEvent);
+
+                if (currentEvent == null) {
+                    MyEvent newEvent = new MyEvent();
+                    newEvent.setDay(pickedDay);
+                    newEvent.setMonth(pickedMonth);
+                    newEvent.setYear(pickedYear);
+                    newEvent.setHour(pickedHour);
+                    newEvent.setMinute(pickedMinute);
+                    newEvent.setTitle(titleEditText.getText().toString());
+                    eventManagment.updateEvent(newEvent);
+                } else {
+                    currentEvent.setTitle(titleEditText.getText().toString());
+                    eventManagment.updateEvent(currentEvent);
+                }
                 Intent backToMainActivity = new Intent(EditEventActivity.this, MainActivity.class);
                 startActivity(backToMainActivity);
             }
@@ -99,7 +110,7 @@ public class EditEventActivity extends AppCompatActivity {
                             pickedHour = selectedHour;
                             pickedMinute = selectedMinute;
                         }
-                    }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);
+                    }, pickedHour, pickedMinute, true);
 
                     mTimePicker.setTitle("Select Time");
                     mTimePicker.show();
@@ -110,7 +121,9 @@ public class EditEventActivity extends AppCompatActivity {
                         public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                             timeButton.setText(selectedHour + " : " + selectedMinute);
                             pickedHour = selectedHour;
+                            currentEvent.setHour(selectedHour);
                             pickedMinute = selectedMinute;
+                            currentEvent.setMinute(selectedMinute);
                         }
                     }, currentEvent.getHour(), currentEvent.getMinute(), true);
 
@@ -129,22 +142,27 @@ public class EditEventActivity extends AppCompatActivity {
                     DatePickerDialog mDatePicker = new DatePickerDialog(EditEventActivity.this, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker datePicker, int selectedyear, int selectedmonth, int selectedday) {
-                            dateButton.setText(selectedday + " / " + selectedmonth + " / " + selectedyear);
+                            formatedDate = df.format(new Date(selectedyear-1900, selectedmonth, selectedday));
+                            dateButton.setText(formatedDate);
                             pickedMonth = selectedmonth + 1;
                             pickedDay = selectedday;
                             pickedYear = selectedyear;
                         }
-                    }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+                    }, pickedYear, pickedMonth - 1, pickedDay);
                     mDatePicker.setTitle("Select Date");
                     mDatePicker.show();
                 } else {
                     DatePickerDialog mDatePicker = new DatePickerDialog(EditEventActivity.this, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker datePicker, int selectedyear, int selectedmonth, int selectedday) {
-                            dateButton.setText(selectedday + " / " + selectedmonth + " / " + selectedyear);
+                            formatedDate = df.format(new Date(selectedyear-1900, selectedmonth, selectedday));
+                            dateButton.setText(formatedDate);
                             pickedMonth = selectedmonth + 1;
+                            currentEvent.setMonth(selectedmonth + 1);
                             pickedDay = selectedday;
+                            currentEvent.setDay(selectedday);
                             pickedYear = selectedyear;
+                            currentEvent.setYear(selectedyear);
                         }
                     }, currentEvent.getYear(), currentEvent.getMonth() - 1, currentEvent.getDay());
                     mDatePicker.setTitle("Select Date");
@@ -159,17 +177,16 @@ public class EditEventActivity extends AppCompatActivity {
         timeButton = (Button) findViewById(R.id.timeButton);
         finishButton = (Button) findViewById(R.id.finishButton);
         titleEditText = (EditText) findViewById(R.id.title);
+        eventManagment = new ParseActions();
     }
 
     private void initValues() {
         cal = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd - MMM - yyyy");
-        SimpleDateFormat tf = new SimpleDateFormat("HH : mm");
+        df = new SimpleDateFormat("dd - MMM - yyyy");
+        tf = new SimpleDateFormat("HH : mm");
 
         if (currentEvent == null) {
-            Toast.makeText(EditEventActivity.this, "sup",
-                    Toast.LENGTH_LONG).show();
-            formattedDate = df.format(cal.getTime());
+            formatedDate = df.format(cal.getTime());
             formatedTime = tf.format(cal.getTime());
             pickedMinute = cal.get(Calendar.MINUTE);
             pickedMonth = cal.get(Calendar.MONTH) + 1;
@@ -179,7 +196,7 @@ public class EditEventActivity extends AppCompatActivity {
         } else {
 
             Date date = new Date(currentEvent.getYear() - 1900, currentEvent.getMonth() - 1, currentEvent.getDay(), currentEvent.getHour(), currentEvent.getMinute());
-            formattedDate = df.format(date);
+            formatedDate = df.format(date);
             formatedTime = tf.format(date);
             pickedMinute = currentEvent.getMinute();
             pickedHour = currentEvent.getHour();
@@ -188,7 +205,7 @@ public class EditEventActivity extends AppCompatActivity {
             pickedYear = currentEvent.getYear() - 1900;
             titleEditText.setText(currentEvent.getTitle().toString());
         }
-        dateButton.setText(formattedDate);
+        dateButton.setText(formatedDate);
         timeButton.setText(formatedTime);
 
     }

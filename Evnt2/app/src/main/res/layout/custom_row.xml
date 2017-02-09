@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textSize="23dp"
+        android:textAlignment="center"
+        android:id="@+id/title_custom_row"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date: "
+        android:layout_below="@+id/title_custom_row"
+        android:textStyle="italic"
+        android:textSize="20dp"
+        android:layout_marginLeft="3dp"
+        android:id="@+id/date_custom_row"
+        android:layout_marginTop="2dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        android:textSize="20dp"
+        android:layout_marginLeft="3dp"
+        android:text="Time: "
+        android:layout_below="@+id/date_custom_row"
+        android:id="@+id/time_custom_row"/>
+
+</RelativeLayout>

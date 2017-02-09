@@ -31,9 +31,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Pick the Date"
         android:id="@+id/dateTextView"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="44dp"
         android:layout_below="@+id/title"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@+id/timeTextView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -67,6 +67,8 @@
         android:id="@+id/finishButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:layout_marginBottom="42dp"
         android:layout_alignParentEnd="true" />
+
 
 </RelativeLayout>
