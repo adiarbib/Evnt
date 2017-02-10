@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.user.evnt.SettingsActivity">
+
+    <Spinner
+        android:id="@+id/notifications_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/select_ringtone_textView"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="66dp">
+
+    </Spinner>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Notification?"
+        android:id="@+id/notif_switch"
+        android:checked="true"
+        android:textAlignment="center"
+        android:layout_above="@+id/notifications_spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="44dp"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Ringtone"
+        android:id="@+id/select_ringtone_textView"
+        android:textAlignment="center"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/notif_switch"
+        android:layout_alignEnd="@+id/notif_switch"
+        android:textSize="20dp"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ringtones_spinner"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="182dp">
+
+    </Spinner>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Settings"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="25dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:id="@+id/done_settings_but"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="44dp"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

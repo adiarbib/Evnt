@@ -5,4 +5,22 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
+
+    <string-array name="notifications_array">
+        <item>At time of event</item>
+        <item>1 hour before</item>
+        <item>2 hours before</item>
+        <item>1 day before</item>
+        <item>2 days before</item>
+        <item>1 week before</item>
+    </string-array>
+
+    <string-array name="ringtones_array">
+        <item>Hello</item>
+        <item>Make You Feel My Love</item>
+        <item>Send My Love</item>
+        <item>Skyfall</item>
+        <item>Turning Tables</item>
+        <item>Rumor Has It</item>
+    </string-array>
 </resources>
