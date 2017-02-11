@@ -1,5 +1,6 @@
 package com.example.user.evnt;
 
+<<<<<<< HEAD
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -33,11 +34,18 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
+=======
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class SettingsActivity extends AppCompatActivity {
+>>>>>>> origin/master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+<<<<<<< HEAD
         initNotifcSpinner();
         initRingtonesSpinner();
         initOtherLayoutStuff();
@@ -104,4 +112,9 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
     }
 
+=======
+
+
+    }
+>>>>>>> origin/master
 }
