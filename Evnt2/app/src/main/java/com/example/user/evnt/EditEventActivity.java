@@ -3,6 +3,7 @@ package com.example.user.evnt;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import com.parse.ParseException;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -44,12 +46,14 @@ public class EditEventActivity extends AppCompatActivity {
     int pickedDay;
 
     EventManagment eventManagment;
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_event);
         initLayoutStuff();
+        pref = getApplicationContext().getSharedPreferences(SettingsActivity.MY_PREFS_NAME, MODE_PRIVATE);
 
         positionOfCurrentEvent = getIntent().getIntExtra(MainActivity.CURRENT_EVENT_POSITION, -1);
         if (positionOfCurrentEvent != -1) {
@@ -77,6 +81,11 @@ public class EditEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                String whenNotification=pref.getString(SettingsActivity.WHEN_NOTIFICATION_KEY,SettingsActivity.WHEN_NOTIFICATION_DEFAULT);
+                boolean isNotificationOn=pref.getBoolean(SettingsActivity.IS_NOTIFICATION_ON_KEY,SettingsActivity.IS_NOTIFICATION_ON_DEFAULT);
+                String whichSong=pref.getString(SettingsActivity.WHICH_SONG_KEY,SettingsActivity.WHICH_SONG_DEFAULT);
+
+
                 if (currentEvent == null) {
                     MyEvent newEvent = new MyEvent();
                     newEvent.setDay(pickedDay);
@@ -86,9 +95,17 @@ public class EditEventActivity extends AppCompatActivity {
                     newEvent.setMinute(pickedMinute);
                     newEvent.setTitle(titleEditText.getText().toString());
                     eventManagment.updateEvent(newEvent);
+                    if(isNotificationOn)
+                    {
+                        //setAlarm(); new Alarm
+                    }
                 } else {
                     currentEvent.setTitle(titleEditText.getText().toString());
                     eventManagment.updateEvent(currentEvent);
+                    if(isNotificationOn)
+                    {
+                        //setAlarm(); new Alarm, Delete Current Alarm.
+                    }
                 }
                 Intent backToMainActivity = new Intent(EditEventActivity.this, MainActivity.class);
                 startActivity(backToMainActivity);
@@ -207,6 +224,12 @@ public class EditEventActivity extends AppCompatActivity {
         }
         dateButton.setText(formatedDate);
         timeButton.setText(formatedTime);
+    }
+
+    //todo: implement the setAlarm method, understand which view is it.
+
+    public void setAlarm(View view,String whenNotification,String whichSong)
+    {
 
     }
 
