@@ -1,7 +1,10 @@
 package com.example.user.evnt;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
@@ -45,7 +48,6 @@ public class EditEventActivity extends AppCompatActivity {
     int pickedMonth;
     int pickedDay;
 
-    EventManagment eventManagment;
     SharedPreferences pref;
 
     @Override
@@ -58,7 +60,7 @@ public class EditEventActivity extends AppCompatActivity {
         positionOfCurrentEvent = getIntent().getIntExtra(MainActivity.CURRENT_EVENT_POSITION, -1);
         if (positionOfCurrentEvent != -1) {
 
-            eventManagment.retrieveEventsCallback(new FindCallback<MyEvent>() {
+            SettingsActivity.eventManagment.retrieveEventsCallback(new FindCallback<MyEvent>() {
                 @Override
                 public void done(List<MyEvent> list, ParseException e) {
                     Collections.sort(list);
@@ -81,10 +83,7 @@ public class EditEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String whenNotification=pref.getString(SettingsActivity.WHEN_NOTIFICATION_KEY,SettingsActivity.WHEN_NOTIFICATION_DEFAULT);
-                boolean isNotificationOn=pref.getBoolean(SettingsActivity.IS_NOTIFICATION_ON_KEY,SettingsActivity.IS_NOTIFICATION_ON_DEFAULT);
-                String whichSong=pref.getString(SettingsActivity.WHICH_SONG_KEY,SettingsActivity.WHICH_SONG_DEFAULT);
-
+                boolean isNotificationOn = pref.getBoolean(SettingsActivity.IS_NOTIFICATION_ON_KEY, SettingsActivity.IS_NOTIFICATION_ON_DEFAULT);
 
                 if (currentEvent == null) {
                     MyEvent newEvent = new MyEvent();
@@ -94,17 +93,18 @@ public class EditEventActivity extends AppCompatActivity {
                     newEvent.setHour(pickedHour);
                     newEvent.setMinute(pickedMinute);
                     newEvent.setTitle(titleEditText.getText().toString());
-                    eventManagment.updateEvent(newEvent);
-                    if(isNotificationOn)
-                    {
+                    SettingsActivity.eventManagment.updateEvent(newEvent);
+                    if (isNotificationOn) {
                         //setAlarm(); new Alarm
+                        SettingsActivity.setAlarm(EditEventActivity.this,newEvent);
                     }
                 } else {
                     currentEvent.setTitle(titleEditText.getText().toString());
-                    eventManagment.updateEvent(currentEvent);
-                    if(isNotificationOn)
-                    {
+                    SettingsActivity.eventManagment.updateEvent(currentEvent);
+                    if (isNotificationOn) {
                         //setAlarm(); new Alarm, Delete Current Alarm.
+                        SettingsActivity.cancelAllAlarms(EditEventActivity.this);
+                        SettingsActivity.setAllAlarms(EditEventActivity.this);
                     }
                 }
                 Intent backToMainActivity = new Intent(EditEventActivity.this, MainActivity.class);
@@ -159,7 +159,7 @@ public class EditEventActivity extends AppCompatActivity {
                     DatePickerDialog mDatePicker = new DatePickerDialog(EditEventActivity.this, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker datePicker, int selectedyear, int selectedmonth, int selectedday) {
-                            formatedDate = df.format(new Date(selectedyear-1900, selectedmonth, selectedday));
+                            formatedDate = df.format(new Date(selectedyear - 1900, selectedmonth, selectedday));
                             dateButton.setText(formatedDate);
                             pickedMonth = selectedmonth + 1;
                             pickedDay = selectedday;
@@ -172,7 +172,7 @@ public class EditEventActivity extends AppCompatActivity {
                     DatePickerDialog mDatePicker = new DatePickerDialog(EditEventActivity.this, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker datePicker, int selectedyear, int selectedmonth, int selectedday) {
-                            formatedDate = df.format(new Date(selectedyear-1900, selectedmonth, selectedday));
+                            formatedDate = df.format(new Date(selectedyear - 1900, selectedmonth, selectedday));
                             dateButton.setText(formatedDate);
                             pickedMonth = selectedmonth + 1;
                             currentEvent.setMonth(selectedmonth + 1);
@@ -194,7 +194,6 @@ public class EditEventActivity extends AppCompatActivity {
         timeButton = (Button) findViewById(R.id.timeButton);
         finishButton = (Button) findViewById(R.id.finishButton);
         titleEditText = (EditText) findViewById(R.id.title);
-        eventManagment = new ParseActions();
     }
 
     private void initValues() {
@@ -224,14 +223,10 @@ public class EditEventActivity extends AppCompatActivity {
         }
         dateButton.setText(formatedDate);
         timeButton.setText(formatedTime);
-    }
-
-    //todo: implement the setAlarm method, understand which view is it.
-
-    public void setAlarm(View view,String whenNotification,String whichSong)
-    {
 
     }
+
+
 
 
 }

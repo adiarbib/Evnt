@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-<<<<<<< HEAD
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_settings:
@@ -97,15 +96,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-=======
 
-        int id=item.getItemId();
-        if(id==R.id.action_settings)
-        {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
->>>>>>> origin/master
     }
 }
