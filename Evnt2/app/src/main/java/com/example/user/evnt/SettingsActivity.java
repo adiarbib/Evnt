@@ -91,10 +91,10 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
     private void initRingtonesSpinner() {
         ringtones_spinner = (Spinner) findViewById(R.id.ringtones_spinner);
-        spinner_ringtones_adapter = ArrayAdapter.createFromResource(this, R.array.notifications_array, android.R.layout.simple_spinner_item);
-        spinner_notific_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        notif_spinner.setAdapter(spinner_ringtones_adapter);
-        notif_spinner.setOnItemSelectedListener(this);
+        spinner_ringtones_adapter = ArrayAdapter.createFromResource(this, R.array.ringtones_array, android.R.layout.simple_spinner_item);
+        spinner_ringtones_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ringtones_spinner.setAdapter(spinner_ringtones_adapter);
+        ringtones_spinner.setOnItemSelectedListener(this);
     }
 
     private void initNotifcSpinner() {

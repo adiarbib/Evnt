@@ -1,6 +1,5 @@
 package com.example.user.evnt;
 
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
@@ -22,7 +21,6 @@ import com.parse.ParseException;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
