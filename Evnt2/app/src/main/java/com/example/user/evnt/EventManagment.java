@@ -10,4 +10,6 @@ public interface EventManagment
     void updateEvent(MyEvent event);
     void retrieveEventsCallback(FindCallback<MyEvent> callback);
     void deleteEvent(MyEvent event);
+    void deleteAllEvents();
+    void addEvent(MyEvent event);
 }

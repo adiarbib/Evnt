@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        
 
         listView = (ListView) findViewById(R.id.listOfEvents);
         List<MyEvent> list = new ArrayList<>();

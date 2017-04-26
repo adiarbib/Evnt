@@ -46,19 +46,17 @@ public class EditEventActivity extends AppCompatActivity {
     int pickedMonth;
     int pickedDay;
 
-    SharedPreferences pref;
+    EventsHelper eventsHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_event);
         initLayoutStuff();
-        pref = getApplicationContext().getSharedPreferences(SettingsActivity.MY_PREFS_NAME, MODE_PRIVATE);
-
         positionOfCurrentEvent = getIntent().getIntExtra(MainActivity.CURRENT_EVENT_POSITION, -1);
         if (positionOfCurrentEvent != -1) {
 
-            SettingsActivity.eventManagment.retrieveEventsCallback(new FindCallback<MyEvent>() {
+            eventsHelper.retrieveEventsCallback(new FindCallback<MyEvent>() {
                 @Override
                 public void done(List<MyEvent> list, ParseException e) {
                     Collections.sort(list);
@@ -81,8 +79,6 @@ public class EditEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                boolean isNotificationOn = pref.getBoolean(SettingsActivity.IS_NOTIFICATION_ON_KEY, SettingsActivity.IS_NOTIFICATION_ON_DEFAULT);
-
                 if (currentEvent == null) {
                     MyEvent newEvent = new MyEvent();
                     newEvent.setDay(pickedDay);
@@ -91,19 +87,11 @@ public class EditEventActivity extends AppCompatActivity {
                     newEvent.setHour(pickedHour);
                     newEvent.setMinute(pickedMinute);
                     newEvent.setTitle(titleEditText.getText().toString());
-                    SettingsActivity.eventManagment.updateEvent(newEvent);
-                    if (isNotificationOn) {
-                        //setAlarm(); new Alarm
-                        SettingsActivity.setAlarm(EditEventActivity.this,newEvent);
-                    }
-                } else {
+                    eventsHelper.addEvent(newEvent);
+                }
+                else {
                     currentEvent.setTitle(titleEditText.getText().toString());
-                    SettingsActivity.eventManagment.updateEvent(currentEvent);
-                    if (isNotificationOn) {
-                        //setAlarm(); new Alarm, Delete Current Alarm.
-                        SettingsActivity.cancelAllAlarms(EditEventActivity.this);
-                        SettingsActivity.setAllAlarms(EditEventActivity.this);
-                    }
+                    eventsHelper.updateEvent(currentEvent);
                 }
                 Intent backToMainActivity = new Intent(EditEventActivity.this, MainActivity.class);
                 startActivity(backToMainActivity);
@@ -195,6 +183,7 @@ public class EditEventActivity extends AppCompatActivity {
     }
 
     private void initValues() {
+        eventsHelper=new EventsHelper(this);
         cal = Calendar.getInstance();
         df = new SimpleDateFormat("dd - MMM - yyyy");
         tf = new SimpleDateFormat("HH : mm");
