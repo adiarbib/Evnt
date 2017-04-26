@@ -45,7 +45,6 @@ public class EditEventActivity extends AppCompatActivity {
     int pickedYear;
     int pickedMonth;
     int pickedDay;
-
     EventsHelper eventsHelper;
 
     @Override
@@ -53,7 +52,9 @@ public class EditEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_event);
         initLayoutStuff();
+        eventsHelper=new EventsHelper(this);
         positionOfCurrentEvent = getIntent().getIntExtra(MainActivity.CURRENT_EVENT_POSITION, -1);
+        //todo:change position to MyEvent Id
         if (positionOfCurrentEvent != -1) {
 
             eventsHelper.retrieveEventsCallback(new FindCallback<MyEvent>() {
@@ -183,7 +184,6 @@ public class EditEventActivity extends AppCompatActivity {
     }
 
     private void initValues() {
-        eventsHelper=new EventsHelper(this);
         cal = Calendar.getInstance();
         df = new SimpleDateFormat("dd - MMM - yyyy");
         tf = new SimpleDateFormat("HH : mm");

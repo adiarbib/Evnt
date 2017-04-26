@@ -8,7 +8,7 @@ import android.provider.BaseColumns;
 public class TableCommands
 {
     public static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE IF NOT EXIST" + TableEntries.TABLE_NAME + " (" +
+            "CREATE TABLE IF NOT EXISTS " + TableEntries.TABLE_NAME + " (" +
                     TableEntries._ID + " TEXT PRIMARY KEY," +
                     TableEntries.COLUMN_NAME_TITLE + " TEXT," +
                     TableEntries.COLUMN_NAME_YEAR + " int," +
@@ -21,7 +21,7 @@ public class TableCommands
             "DROP TABLE IF EXISTS " + TableEntries.TABLE_NAME;
     public class TableEntries implements BaseColumns {
 
-        public static final String TABLE_NAME = "entry";
+        public static final String TABLE_NAME = "Events";
         public static final String COLUMN_NAME_TITLE = MyEvent.TITLE_KEY;
         public static final String COLUMN_NAME_YEAR = MyEvent.YEAR_KEY;
         public static final String COLUMN_NAME_MONTH = MyEvent.MONTH_KEY;

@@ -12,19 +12,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
 import com.parse.FindCallback;
 import com.parse.ParseException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EventManagment eventManagment;
+    private EventsHelper eventsHelper;
     private ListView listView;
     private ArrayAdapter<MyEvent> adapter;
     public static final String CURRENT_EVENT_POSITION = "currentEventPosition";
-
     private Toolbar toolbar;
 
     @Override
@@ -32,8 +33,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        eventsHelper = new EventsHelper(this);
 
         listView = (ListView) findViewById(R.id.listOfEvents);
         List<MyEvent> list = new ArrayList<>();
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                eventManagment.deleteEvent((MyEvent) listView.getItemAtPosition(i));
+                eventsHelper.deleteEvent((MyEvent) listView.getItemAtPosition(i));
                 listViewUpdate();
                 return true;
             }
@@ -72,15 +75,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        eventManagment = new ParseActions();
         listViewUpdate();
     }
 
     private void listViewUpdate() {
-        eventManagment.retrieveEventsCallback(new FindCallback<MyEvent>() {
+        eventsHelper.retrieveEventsCallback(new FindCallback<MyEvent>() {
             @Override
             public void done(List<MyEvent> list, ParseException e) {
-
                 Collections.sort(list);
                 adapter.clear();
                 adapter.addAll(list);
@@ -91,11 +92,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                Intent settings_intent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(settings_intent);
+            case R.id.action_Add:
+                Intent intent = new Intent(MainActivity.this, EditEventActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

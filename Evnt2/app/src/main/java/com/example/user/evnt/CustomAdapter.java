@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by User on 09/02/2017.
@@ -23,7 +24,7 @@ public class CustomAdapter extends ArrayAdapter<MyEvent> {
 
     public CustomAdapter(Context context, List<MyEvent> events) {
         super(context, R.layout.custom_row, events);
-        df = new SimpleDateFormat("dd - MMM - yyyy");
+        df = new SimpleDateFormat("dd - MMM - yyyy", Locale.US);
     }
 
     @Override
