@@ -119,21 +119,6 @@ public class EventsHelper implements EventManagment {
     }
 
     private void showNoInternetToast() {
-        //todo:change to Toast instead of Dialog
-//        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-//        builder1.setMessage("No Internet Connection.");
-//        builder1.setCancelable(true);
-//
-//        builder1.setNeutralButton(
-//                "Ok",
-//                new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        dialog.cancel();
-//                    }
-//                });
-//
-//        AlertDialog alert11 = builder1.create();
-//        alert11.show();
         Toast.makeText(context,"No Internet Connection, Can not change events",Toast.LENGTH_LONG).show();
 
     }
