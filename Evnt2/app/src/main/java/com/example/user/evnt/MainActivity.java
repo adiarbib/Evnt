@@ -1,10 +1,13 @@
 package com.example.user.evnt;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -27,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<MyEvent> adapter;
     public static final String CURRENT_EVENT_POSITION = "currentEventPosition";
     private Toolbar toolbar;
+    private TelephonyManager telephonyManager;
+    private PhoneStateListener phoneStateListener;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +44,20 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        eventsHelper = new EventsHelper(this);
+        telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        phoneStateListener = new PhoneStateListener(){
+            @Override
+            public void onCallStateChanged(int state, String incomingNumber) {
+                //super.onCallStateChanged(state, incomingNumber);
+                if(state==TelephonyManager.CALL_STATE_RINGING)
+                {
+                    Toast.makeText(getApplicationContext(),"Don't forget to tell your love ones about the events!",Toast.LENGTH_LONG).show();
+                }
+            }
+        };
+        telephonyManager.listen(phoneStateListener,PhoneStateListener.LISTEN_CALL_STATE);
 
+        eventsHelper = new EventsHelper(this);
         listView = (ListView) findViewById(R.id.listOfEvents);
         List<MyEvent> list = new ArrayList<>();
         adapter = new CustomAdapter(MainActivity.this, list);

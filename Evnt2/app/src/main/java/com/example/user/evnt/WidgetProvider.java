@@ -6,7 +6,12 @@ import android.appwidget.AppWidgetProvider;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.RemoteViews;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by User on 26/04/2017.
