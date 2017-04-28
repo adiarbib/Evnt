@@ -41,6 +41,7 @@
                 android:resource="@xml/widget" />
         </receiver>
 
+
     </application>
 
 </manifest>

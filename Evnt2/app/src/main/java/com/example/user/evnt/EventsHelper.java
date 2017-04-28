@@ -28,6 +28,12 @@ public class EventsHelper implements EventManagment {
         parseActions=new ParseActions();
         localDatabaseProvider=new LocalDatabaseProvider(context);
     }
+
+    /**
+     * updates the event in the local database and in the Parse
+     * @param event
+     */
+
     @Override
     public void updateEvent(MyEvent event) {
         if(!isNetworkConnected()) {
@@ -37,6 +43,11 @@ public class EventsHelper implements EventManagment {
         parseActions.updateEvent(event);
         new LocalUpdateEventTask().execute(event); //todo: think about this
     }
+
+    /**
+     * Retrieves all of the events from database and from Parse
+     * @param callback
+     */
 
     @Override
     public void retrieveEventsCallback(final FindCallback<MyEvent> callback) {
@@ -63,6 +74,11 @@ public class EventsHelper implements EventManagment {
         }
     }
 
+    /**
+     * Deletes an event from local database and from Parse
+     * @param event
+     */
+
     @Override
     public void deleteEvent(MyEvent event) {
         boolean isNetworkConnected=isNetworkConnected();
@@ -77,6 +93,10 @@ public class EventsHelper implements EventManagment {
         }
 
     }
+
+    /**
+     * Deletes all of the events from local database and from Parse
+     */
 
     @Override
     public void deleteAllEvents() {
@@ -93,6 +113,11 @@ public class EventsHelper implements EventManagment {
         }
     }
 
+    /**
+     * Adding an event to local database and to Parse
+     * @param event
+     */
+
     @Override
     public void addEvent(MyEvent event) {
         boolean isNetworkConnected=isNetworkConnected();
@@ -107,6 +132,11 @@ public class EventsHelper implements EventManagment {
         }
     }
 
+    /**
+     * checking if the network is connected
+     * @return
+     */
+
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -118,10 +148,18 @@ public class EventsHelper implements EventManagment {
             return true;
     }
 
+    /**
+     * showing toast for no internet
+     */
+
     private void showNoInternetToast() {
         Toast.makeText(context,"No Internet Connection, Can not change events",Toast.LENGTH_LONG).show();
 
     }
+
+    /**
+     * An AsyncTask to update in the local database while the UI thread is continuing
+     */
 
     class LocalUpdateEventTask extends AsyncTask<MyEvent,Void,Void>
     {

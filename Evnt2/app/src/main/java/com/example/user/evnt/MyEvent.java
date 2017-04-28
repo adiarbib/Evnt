@@ -3,16 +3,17 @@ package com.example.user.evnt;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-
 import java.io.Serializable;
 
 /**
- * Created by User on 27/11/2016.
+ * Parse object MyEvent
  */
 @ParseClassName("MyEvent")
 public class MyEvent extends ParseObject implements Comparable<MyEvent>,Serializable {
 
-    //all constant keys
+    /**
+     * constant keys
+     */
     public static final String YEAR_KEY = "year";
     public static final String MONTH_KEY = "month";
     public static final String DAY_KEY = "day";
@@ -28,6 +29,11 @@ public class MyEvent extends ParseObject implements Comparable<MyEvent>,Serializ
         return getInt(YEAR_KEY);
     }
 
+    /**
+     *
+     * @param year the year of the event
+     */
+
     public void setYear(int year) {
         put(YEAR_KEY, year);
     }
@@ -35,6 +41,11 @@ public class MyEvent extends ParseObject implements Comparable<MyEvent>,Serializ
     public int getMonth() {
         return getInt(MONTH_KEY);
     }
+
+    /**
+     *
+     * @param month the month of the event
+     */
 
     public void setMonth(int month) {
         put(MONTH_KEY, month);
@@ -44,6 +55,11 @@ public class MyEvent extends ParseObject implements Comparable<MyEvent>,Serializ
         return getInt(DAY_KEY);
     }
 
+    /**
+     *
+     * @param day the day of the event
+     */
+
     public void setDay(int day) {
         put(DAY_KEY, day);
     }
@@ -51,6 +67,11 @@ public class MyEvent extends ParseObject implements Comparable<MyEvent>,Serializ
     public int getHour() {
         return getInt(HOUR_KEY);
     }
+
+    /**
+     *
+     * @param hour the hour of the event
+     */
 
     public void setHour(int hour) {
         put(HOUR_KEY, hour);
@@ -60,6 +81,11 @@ public class MyEvent extends ParseObject implements Comparable<MyEvent>,Serializ
         return getInt(MINUTE_KEY);
     }
 
+    /**
+     *
+     * @param minute the minute of the event
+     */
+
     public void setMinute(int minute) {
         put(MINUTE_KEY, minute);
     }
@@ -67,6 +93,11 @@ public class MyEvent extends ParseObject implements Comparable<MyEvent>,Serializ
     public String getTitle() {
         return getString(TITLE_KEY);
     }
+
+    /**
+     *
+     * @param title the title of the event
+     */
 
     public void setTitle(String title) {
         put(TITLE_KEY, title);
@@ -83,6 +114,12 @@ public class MyEvent extends ParseObject implements Comparable<MyEvent>,Serializ
                         getMinute() + '\n';
         return result;
     }
+
+    /**
+     * compares between the date of the events. and returns which one is closer
+     * @param compareEvent
+     * @return
+     */
 
 
     @Override

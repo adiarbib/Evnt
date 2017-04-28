@@ -54,7 +54,6 @@ public class EditEventActivity extends AppCompatActivity {
         initLayoutStuff();
         eventsHelper=new EventsHelper(this);
         positionOfCurrentEvent = getIntent().getIntExtra(MainActivity.CURRENT_EVENT_POSITION, -1);
-        //todo:change position to MyEvent Id
         if (positionOfCurrentEvent != -1) {
 
             eventsHelper.retrieveEventsCallback(new FindCallback<MyEvent>() {

@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private TelephonyManager telephonyManager;
     private PhoneStateListener phoneStateListener;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,34 +41,22 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        phoneStateListener = new PhoneStateListener(){
-            @Override
-            public void onCallStateChanged(int state, String incomingNumber) {
-                //super.onCallStateChanged(state, incomingNumber);
-                if(state==TelephonyManager.CALL_STATE_RINGING)
-                {
-                    Toast.makeText(getApplicationContext(),"Don't forget to tell your love ones about the events!",Toast.LENGTH_LONG).show();
-                }
-            }
-        };
-        telephonyManager.listen(phoneStateListener,PhoneStateListener.LISTEN_CALL_STATE);
-
+        incomingCallHandler();
         eventsHelper = new EventsHelper(this);
+        initListView();
+        initFab();
+        deleteEvent();
+        clickedOnAnEvent();
+    }
+
+    private void initListView() {
         listView = (ListView) findViewById(R.id.listOfEvents);
         List<MyEvent> list = new ArrayList<>();
         adapter = new CustomAdapter(MainActivity.this, list);
         listView.setAdapter(adapter);
-        initFab();
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                eventsHelper.deleteEvent((MyEvent) listView.getItemAtPosition(i));
-                listViewUpdate();
-                return true;
-            }
-        });
+    }
+
+    private void clickedOnAnEvent() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -79,6 +65,31 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(editIntent);
             }
         });
+    }
+
+    private void deleteEvent() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                eventsHelper.deleteEvent((MyEvent) listView.getItemAtPosition(i));
+                listViewUpdate();
+                return true;
+            }
+        });
+    }
+
+    private void incomingCallHandler() {
+        telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        phoneStateListener = new PhoneStateListener(){
+            @Override
+            public void onCallStateChanged(int state, String incomingNumber) {
+                if(state==TelephonyManager.CALL_STATE_RINGING)
+                {
+                    Toast.makeText(getApplicationContext(),"Don't forget to tell your love ones about the events!",Toast.LENGTH_LONG).show();
+                }
+            }
+        };
+        telephonyManager.listen(phoneStateListener,PhoneStateListener.LISTEN_CALL_STATE);
     }
 
     private void initFab() {
@@ -102,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         eventsHelper.retrieveEventsCallback(new FindCallback<MyEvent>() {
             @Override
             public void done(List<MyEvent> list, ParseException e) {
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 Collections.sort(list);
                 adapter.clear();
                 adapter.addAll(list);

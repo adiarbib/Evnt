@@ -21,7 +21,6 @@ public class CustomAdapter extends ArrayAdapter<MyEvent> {
     SimpleDateFormat df;
     String formatedDate;
 
-
     public CustomAdapter(Context context, List<MyEvent> events) {
         super(context, R.layout.custom_row, events);
         df = new SimpleDateFormat("dd - MMM - yyyy", Locale.US);

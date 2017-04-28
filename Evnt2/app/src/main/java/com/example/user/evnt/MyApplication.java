@@ -6,10 +6,10 @@ import com.parse.Parse;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
-import com.parse.PushService;
 
 public class MyApplication extends Application
 {
+
     public static final String APPLICATION_ID = "a2IxzIPAzFaelatZwzP038qFhKIdLIuAc4tGsLET";
     public static final String CLIENT_KEY = "HJwXRtCY87SyafpzsnJOapBdQOknRjwqBNzRRgCG";
     public static final String SERVER = "https://parseapi.back4app.com/";

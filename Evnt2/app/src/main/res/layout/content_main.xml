@@ -21,6 +21,16 @@
         android:layout_centerHorizontal="true"
         android:textSize="20dp"/>
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/loadingPanel"/>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

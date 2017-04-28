@@ -10,14 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by User on 26/04/2017.
+ * a class which handles with SQLite api
  */
 public class LocalDatabaseProvider implements EventManagment {
-    EventDbHelper eventDbHelper;
+    private EventDbHelper eventDbHelper;
+
+    /**
+     * The constructor of the class
+     * @param context
+     */
 
     public LocalDatabaseProvider(Context context) {
         eventDbHelper = new EventDbHelper(context);
     }
+
+    /**
+     * updates the event in the local database
+     * @param event
+     */
 
     @Override
     public void updateEvent(MyEvent event) {
@@ -37,6 +47,11 @@ public class LocalDatabaseProvider implements EventManagment {
         cv.put(TableCommands.TableEntries.COLUMN_NAME_HOUR, event.getHour());
         cv.put(TableCommands.TableEntries.COLUMN_NAME_MINUTE, event.getMinute());
     }
+
+    /**
+     * Retrieves all of the events from database (from the backup)
+     * @param callback
+     */
 
     @Override
     public void retrieveEventsCallback(FindCallback<MyEvent> callback) {
@@ -59,6 +74,11 @@ public class LocalDatabaseProvider implements EventManagment {
         callback.done(myEvents, null);
     }
 
+    /**
+     * Deletes an event from local database
+     * @param event
+     */
+
     @Override
     public void deleteEvent(MyEvent event) {
         eventDbHelper.getWritableDatabase().delete(TableCommands.TableEntries.TABLE_NAME,"?=?",new String[]{
@@ -67,10 +87,19 @@ public class LocalDatabaseProvider implements EventManagment {
 
     }
 
+    /**
+     * Deletes all of the events from local database
+     */
+
     @Override
     public void deleteAllEvents() {
         eventDbHelper.getWritableDatabase().delete(TableCommands.TableEntries.TABLE_NAME,null,null);
     }
+
+    /**
+     * Adding an event to local database
+     * @param event
+     */
 
     @Override
     public void addEvent(MyEvent event) {

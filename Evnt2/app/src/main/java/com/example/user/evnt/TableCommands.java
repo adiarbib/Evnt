@@ -17,8 +17,6 @@ public class TableCommands
                     TableEntries.COLUMN_NAME_HOUR + " int," +
                     TableEntries.COLUMN_NAME_MINUTE + " int)";
 
-    public static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + TableEntries.TABLE_NAME;
     public class TableEntries implements BaseColumns {
 
         public static final String TABLE_NAME = "Events";
