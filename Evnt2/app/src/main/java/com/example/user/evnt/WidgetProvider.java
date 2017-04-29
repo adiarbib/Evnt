@@ -17,33 +17,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by User on 26/04/2017.
+ * a class that is meant to deal with the widget.
+ * it extends the AppWidgetProvider class which extends BroadcastReceiver class.
  */
 public class WidgetProvider extends AppWidgetProvider {
-
-    public static final String UPDATE_EVENT_ACTION = "android.appwidget.action.APPWIDGET_UPDATE";
-    private EventsHelper eventsHelper;
-    private ListView listView;
-    private ArrayAdapter<MyEvent> adapter;
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
         final int N = appWidgetIds.length;
 
-        // Perform this loop procedure for each App Widget that belongs to this provider
+        /**
+         * Perform this loop procedure for each App Widget that belongs to this provider
+         */
+
         for (int i=0; i<N; i++) {
             int appWidgetId = appWidgetIds[i];
 
-            // Create an Intent to launch ExampleActivity
+            /**
+             * Create an Intent to launch ExampleActivity
+             */
             Intent intent = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
-            // Get the layout for the App Widget and attach an on-click listener
-            // to the button
+            /**
+             * Get the layout for the App Widget and attach an on-click listener
+             * to the button
+             */
+
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
             views.setOnClickPendingIntent(R.id.button, pendingIntent);
 
-            // Tell the AppWidgetManager to perform an update on the current app widget
+            /**
+             * Tell the AppWidgetManager to perform an update on the current app widget
+             */
+
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
 

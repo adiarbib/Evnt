@@ -5,7 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by User on 26/04/2017.
+ * A class that deals directly with the database,
+ * uses commands that were saved in TableCommands class.
  */
 public class EventDbHelper extends SQLiteOpenHelper
 {
@@ -18,6 +19,7 @@ public class EventDbHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TableCommands.SQL_CREATE_ENTRIES);
     }
+
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }

@@ -3,7 +3,10 @@ package com.example.user.evnt;
 import android.provider.BaseColumns;
 
 /**
- * Created by User on 26/04/2017.
+ * A class that is meant to save commands that afterwards
+ * these commands will be used in EventsDbHelper that deals
+ * with actions with the database
+ * this class implements the CREATE command.
  */
 public class TableCommands
 {
@@ -16,6 +19,10 @@ public class TableCommands
                     TableEntries.COLUMN_NAME_DAY + " int," +
                     TableEntries.COLUMN_NAME_HOUR + " int," +
                     TableEntries.COLUMN_NAME_MINUTE + " int)";
+
+    /**
+     * An inner in TableCommmands class, deals with constants.
+     */
 
     public class TableEntries implements BaseColumns {
 

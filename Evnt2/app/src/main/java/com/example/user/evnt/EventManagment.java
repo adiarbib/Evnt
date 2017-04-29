@@ -8,7 +8,7 @@ import com.parse.FindCallback;
 public interface EventManagment
 {
     /**
-     * updates the event
+     * Updates the event
      * @param event
      */
 

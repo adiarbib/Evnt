@@ -7,24 +7,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by User on 09/02/2017.
+ * A custom adapter for the listView
  */
 public class CustomAdapter extends ArrayAdapter<MyEvent> {
 
     SimpleDateFormat df;
     String formatedDate;
 
+    /**
+     * A constructor of the adapter
+     * @param context
+     * @param events
+     */
+
     public CustomAdapter(Context context, List<MyEvent> events) {
         super(context, R.layout.custom_row, events);
         df = new SimpleDateFormat("dd - MMM - yyyy", Locale.US);
     }
+
+    /**
+     * A method that creates a new view that contains that title,
+     * the date, and the time of the event
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return new View that contains everything I want in a row of the listView
+     */
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

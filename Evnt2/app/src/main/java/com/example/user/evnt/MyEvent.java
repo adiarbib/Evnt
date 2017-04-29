@@ -2,7 +2,6 @@ package com.example.user.evnt;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import java.io.Serializable;
 
 /**

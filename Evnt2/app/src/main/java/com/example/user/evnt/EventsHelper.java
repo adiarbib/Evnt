@@ -1,8 +1,6 @@
 package com.example.user.evnt;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -15,7 +13,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by User on 26/04/2017.
+ * A class that makes a comfortable API that deals with
+ * both Parse and SQLite database and syncs them together
  */
 public class EventsHelper implements EventManagment {
 
@@ -30,7 +29,7 @@ public class EventsHelper implements EventManagment {
     }
 
     /**
-     * updates the event in the local database and in the Parse
+     * Updates the event in the local database and in the Parse
      * @param event
      */
 
@@ -133,7 +132,7 @@ public class EventsHelper implements EventManagment {
     }
 
     /**
-     * checking if the network is connected
+     * Checking if the network is connected
      * @return
      */
 
@@ -149,7 +148,7 @@ public class EventsHelper implements EventManagment {
     }
 
     /**
-     * showing toast for no internet
+     * Showing toast for no internet
      */
 
     private void showNoInternetToast() {

@@ -24,7 +24,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * this is the edit event activity
+ * This is the activity in which the user edits
+ * an existing event or creating a new one.
  */
 public class EditEventActivity extends AppCompatActivity {
 
@@ -74,6 +75,12 @@ public class EditEventActivity extends AppCompatActivity {
         initDoneButton();
     }
 
+    /**
+     * A method that deals with the user clicking on the "Done" button.
+     * It either creates a new event and uses the EventsHelper to do it
+     * or updates an existing event while using the EventsHelper.
+     */
+
     private void initDoneButton() {
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +105,12 @@ public class EditEventActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Dealing with the user clicking on the time button.
+     * The method opens a new TimePickerDialog and saves
+     * the user selection.
+     */
 
     private void initTimeButton() {
         timeButton.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +150,12 @@ public class EditEventActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Dealing with the user clicking on the date button.
+     * The method opens a new DatePickerDialog and saves
+     * the user selection.
+     */
+
     private void initDateButton() {
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,6 +194,10 @@ public class EditEventActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method initiates some layout variables.
+     */
+
     private void initLayoutStuff() {
         dateButton = (Button) findViewById(R.id.dateButton);
         timeButton = (Button) findViewById(R.id.timeButton);
@@ -182,12 +205,18 @@ public class EditEventActivity extends AppCompatActivity {
         titleEditText = (EditText) findViewById(R.id.title);
     }
 
+    /**
+     * This method initiates the values of the date
+     * and time buttons.
+     */
+
     private void initValues() {
         cal = Calendar.getInstance();
         df = new SimpleDateFormat("dd - MMM - yyyy");
         tf = new SimpleDateFormat("HH : mm");
 
-        if (currentEvent == null) {
+        if (currentEvent == null)
+        {
             formatedDate = df.format(cal.getTime());
             formatedTime = tf.format(cal.getTime());
             pickedMinute = cal.get(Calendar.MINUTE);
@@ -195,8 +224,10 @@ public class EditEventActivity extends AppCompatActivity {
             pickedYear = cal.get(Calendar.YEAR);
             pickedHour = cal.get(Calendar.HOUR);
             pickedDay = cal.get(Calendar.DAY_OF_MONTH);
-        } else {
+        }
 
+        else
+        {
             Date date = new Date(currentEvent.getYear() - 1900, currentEvent.getMonth() - 1, currentEvent.getDay(), currentEvent.getHour(), currentEvent.getMinute());
             formatedDate = df.format(date);
             formatedTime = tf.format(date);

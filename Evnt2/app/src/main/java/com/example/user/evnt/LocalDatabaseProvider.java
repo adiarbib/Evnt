@@ -7,10 +7,9 @@ import android.database.Cursor;
 import com.parse.FindCallback;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * a class which handles with SQLite api
+ * A class that handles with SQLite api
  */
 public class LocalDatabaseProvider implements EventManagment {
     private EventDbHelper eventDbHelper;
@@ -25,7 +24,7 @@ public class LocalDatabaseProvider implements EventManagment {
     }
 
     /**
-     * updates the event in the local database
+     * Updates the event in the local database
      * @param event
      */
 
@@ -37,6 +36,12 @@ public class LocalDatabaseProvider implements EventManagment {
                 TableCommands.TableEntries._ID,
                 event.getObjectId()});
     }
+
+    /**
+     * A method that inserts values into the ContentValues
+     * @param event
+     * @param cv
+     */
 
     private void putContentValues(MyEvent event, ContentValues cv) {
         cv.put(TableCommands.TableEntries._ID, event.getObjectId());

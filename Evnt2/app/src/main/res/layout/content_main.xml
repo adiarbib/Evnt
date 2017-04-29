@@ -15,10 +15,37 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="All Current Events"
-        android:id="@+id/title"
+        android:text="Today's Events"
         android:layout_alignParentTop="true"
+        android:id="@+id/todaysEventsTitle"
         android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_below="@+id/todaysEventsTitle"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/todayLoadingPanel"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/todaysEventsList"
+        android:layout_below="@+id/todaysEventsTitle"
+        android:layout_marginTop="20dp"></ListView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All Events"
+        android:id="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/todaysEventsList"
         android:textSize="20dp"/>
 
     <ProgressBar
