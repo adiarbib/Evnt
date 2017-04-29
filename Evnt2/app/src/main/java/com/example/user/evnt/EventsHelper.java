@@ -40,7 +40,7 @@ public class EventsHelper implements EventManagment {
             return;
         }
         parseActions.updateEvent(event);
-        new LocalUpdateEventTask().execute(event); //todo: think about this
+        new LocalUpdateEventTask().execute(event);
     }
 
     /**

@@ -1,5 +1,4 @@
 package com.example.user.evnt;
-
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import java.io.Serializable;
